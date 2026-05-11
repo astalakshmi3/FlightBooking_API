@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Calendar, Clock, MapPin } from "lucide-react";
+import { Plane, Calendar, Clock, MapPin } from "lucide-react";
 import type { Flight } from "../types/Flight";
 import { bookFlight } from "../api/FlightApi";
 
@@ -28,9 +28,13 @@ const FlightCard = ({ flight }: Props) => {
 
             {/* Header */}
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold text-blue-700">
-                    {flight.flightNumber}
-                </h2>
+                <div className="flex items-center gap-2">
+                    <Plane className="text-blue-700" size={22} />
+
+                    <h2 className="text-xl font-bold text-blue-700">
+                        {flight.flightNumber}
+                    </h2>
+                </div>
 
                 <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
           {flight.price} SEK
