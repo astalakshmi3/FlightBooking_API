@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { SearchCheck } from "lucide-react";
 import { getBookingsByEmail } from "../api/FlightApi";
 
 const BookingLookupPage = () => {
@@ -11,27 +12,45 @@ const BookingLookupPage = () => {
     };
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
-            <h1 className="text-2xl font-bold mb-4">Find Bookings</h1>
+        <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
 
-            <input
-                className="border p-2 rounded mr-2"
-                placeholder="Enter passenger email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
+            {/* Title */}
+            <div className="flex items-center gap-3 mb-6">
+                <SearchCheck className="text-blue-700" size={32} />
 
-            <button
-                onClick={handleSearch}
-                className="bg-blue-600 text-white px-4 py-2 rounded"
-            >
-                Search
-            </button>
+                <h1 className="text-3xl font-bold text-gray-800">
+                    Find Bookings
+                </h1>
+            </div>
 
-            <div className="mt-6 space-y-3">
+            {/* Search Box */}
+            <div className="flex flex-col md:flex-row gap-3 w-full max-w-2xl justify-center items-center">
+
+                <input
+                    className="w-full rounded-xl border bg-white px-4 py-3 shadow-sm outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Enter passenger email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+
+                <button
+                    onClick={handleSearch}
+                    className="rounded-xl bg-blue-700 px-6 py-3 font-semibold text-white hover:bg-blue-800"
+                >
+                    Search
+                </button>
+            </div>
+
+            {/* Output */}
+            <div className="mt-8 w-full max-w-3xl space-y-4">
                 {bookings.map((booking, index) => (
-                    <div key={index} className="bg-white p-4 rounded shadow">
-                        <pre>{JSON.stringify(booking, null, 2)}</pre>
+                    <div
+                        key={index}
+                        className="rounded-2xl bg-white p-5 shadow-md"
+                    >
+            <pre className="whitespace-pre-wrap text-sm text-gray-700">
+              {JSON.stringify(booking, null, 2)}
+            </pre>
                     </div>
                 ))}
             </div>

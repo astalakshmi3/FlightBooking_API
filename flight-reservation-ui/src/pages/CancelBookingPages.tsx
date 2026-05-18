@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { TicketX } from "lucide-react";
 import { cancelBooking } from "../api/FlightApi";
 
 const CancelBookingPage = () => {
@@ -9,39 +10,64 @@ const CancelBookingPage = () => {
     const handleCancel = async () => {
         try {
             await cancelBooking(Number(flightId), email);
-            setMessage("Booking cancelled successfully!");
+
+            setMessage("✅ Booking cancelled successfully!");
+
+            setFlightId("");
+            setEmail("");
         } catch {
-            setMessage("Cancel failed. Please check Flight ID and email.");
+            setMessage("❌ Cancel failed. Please check Flight ID and email.");
         }
     };
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
-            <h1 className="text-2xl font-bold mb-4">Cancel Booking</h1>
+        <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center px-6">
 
-            <div className="space-y-3 max-w-md">
-                <input
-                    className="border p-2 rounded w-full"
-                    placeholder="Flight ID"
-                    value={flightId}
-                    onChange={(e) => setFlightId(e.target.value)}
-                />
+            {/* Card */}
+            <div className="w-full max-w-md rounded-3xl bg-white p-8 shadow-xl">
 
-                <input
-                    className="border p-2 rounded w-full"
-                    placeholder="Passenger email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
+                {/* Header */}
+                <div className="mb-6 flex items-center justify-center gap-3">
+                    <TicketX className="text-red-600" size={34} />
 
-                <button
-                    onClick={handleCancel}
-                    className="bg-red-600 text-white px-4 py-2 rounded"
-                >
-                    Cancel Booking
-                </button>
+                    <h1 className="text-3xl font-bold text-gray-800">
+                        Cancel Booking
+                    </h1>
+                </div>
 
-                {message && <p className="font-medium">{message}</p>}
+                {/* Inputs */}
+                <div className="space-y-4">
+
+                    <input
+                        className="w-full rounded-xl border px-4 py-3 shadow-sm outline-none focus:ring-2 focus:ring-red-400"
+                        placeholder="Enter Flight ID"
+                        value={flightId}
+                        onChange={(e) => setFlightId(e.target.value)}
+                    />
+
+                    <input
+                        className="w-full rounded-xl border px-4 py-3 shadow-sm outline-none focus:ring-2 focus:ring-red-400"
+                        placeholder="Enter Passenger Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+
+                    {/* Button */}
+                    <button
+                        onClick={handleCancel}
+                        className="w-full rounded-xl bg-red-600 py-3 font-semibold text-white transition hover:bg-red-700"
+                    >
+                        Cancel Booking
+                    </button>
+
+                    {/* Message */}
+                    {message && (
+                        <p className="rounded-xl bg-gray-100 p-3 text-center font-medium text-gray-700">
+                            {message}
+                        </p>
+                    )}
+
+                </div>
             </div>
         </div>
     );
