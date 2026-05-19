@@ -67,3 +67,17 @@ This project helped me practice:
 * Routing with React Router
 * Dynamic UI rendering
 * Frontend and backend communication
+
+## 🖼️ UI Output
+            
+### All Flights Page
+![All Flights Page](screenshots/Allflight.png)
+
+### Available Flights Page
+![Available Flights Page](screenshots/AvailableFlight.png)
+
+### Find Bookings Page
+![Find Bookings Page](screenshots/Booking.png)
+
+### Cancel Booking Page
+![Cancel Booking Page](screenshots/Cancel.png)
