@@ -8,11 +8,18 @@ const CancelBookingPage = () => {
     const [message, setMessage] = useState("");
 
     const handleCancel = async () => {
+        const confirmCancel = window.confirm(
+            "Are you sure you want to cancel this booking?"
+        );
+
+        if (!confirmCancel) {
+            setMessage("Cancellation stopped.");
+            return;
+        }
+
         try {
             await cancelBooking(Number(flightId), email);
-
             setMessage("✅ Booking cancelled successfully!");
-
             setFlightId("");
             setEmail("");
         } catch {

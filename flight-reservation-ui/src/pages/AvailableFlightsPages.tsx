@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import { PlaneTakeoff } from "lucide-react";
 import { getAvailableFlights } from "../api/FlightApi";
 import type { Flight } from "../types/Flight";
-import { PlaneTakeoff } from "lucide-react";
 import SearchBar from "../components/SearchBar";
 import StatusMessage from "../components/StatusMessage";
 import FlightGrid from "../components/FlightGrid";
@@ -27,14 +27,23 @@ const AvailableFlightsPage = () => {
 
     return (
         <main className="mx-auto max-w-6xl px-6 py-8">
-            <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <div className="flex items-center gap-3">
-                    <PlaneTakeoff className="text-green-600" size={34} />
+            <section className="mb-8 rounded-2xl bg-green-700 p-8 text-white shadow-xl">
+                <div className="flex items-center gap-4">
+                    <PlaneTakeoff size={42} />
 
-                    <h1 className="text-3xl font-bold text-gray-800">
-                        Available Flights
-                    </h1>
+                    <div>
+                        <h1 className="text-4xl font-bold">Available Flights</h1>
+                        <p className="mt-2 text-green-100">
+                            Choose from flights that are currently available for booking.
+                        </p>
+                    </div>
                 </div>
+            </section>
+
+            <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <h2 className="text-2xl font-bold text-gray-800">
+                    {filteredFlights.length} Available Flight(s)
+                </h2>
 
                 <SearchBar search={search} onSearchChange={setSearch} />
             </div>

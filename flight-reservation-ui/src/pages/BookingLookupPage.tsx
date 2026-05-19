@@ -4,28 +4,30 @@ import { getBookingsByEmail } from "../api/FlightApi";
 
 const BookingLookupPage = () => {
     const [email, setEmail] = useState("");
-    const [bookings, setBookings] = useState<any[]>([]);
+    const [message, setMessage] = useState("");
 
     const handleSearch = async () => {
-        const data = await getBookingsByEmail(email);
-        setBookings(data);
+        try {
+            const data = await getBookingsByEmail(email);
+
+            if (data.length > 0) {
+                setMessage(`✅ ${data.length} booking(s) found for ${email}`);
+            } else {
+                setMessage("❌ No bookings found for this email.");
+            }
+        } catch {
+            setMessage("❌ Could not search bookings. Please try again.");
+        }
     };
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
-
-            {/* Title */}
             <div className="flex items-center gap-3 mb-6">
                 <SearchCheck className="text-blue-700" size={32} />
-
-                <h1 className="text-3xl font-bold text-gray-800">
-                    Find Bookings
-                </h1>
+                <h1 className="text-3xl font-bold text-gray-800">Find Bookings</h1>
             </div>
 
-            {/* Search Box */}
             <div className="flex flex-col md:flex-row gap-3 w-full max-w-2xl justify-center items-center">
-
                 <input
                     className="w-full rounded-xl border bg-white px-4 py-3 shadow-sm outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter passenger email"
@@ -41,19 +43,11 @@ const BookingLookupPage = () => {
                 </button>
             </div>
 
-            {/* Output */}
-            <div className="mt-8 w-full max-w-3xl space-y-4">
-                {bookings.map((booking, index) => (
-                    <div
-                        key={index}
-                        className="rounded-2xl bg-white p-5 shadow-md"
-                    >
-            <pre className="whitespace-pre-wrap text-sm text-gray-700">
-              {JSON.stringify(booking, null, 2)}
-            </pre>
-                    </div>
-                ))}
-            </div>
+            {message && (
+                <div className="mt-6 w-full max-w-2xl rounded-xl bg-white p-5 text-center font-medium shadow">
+                    {message}
+                </div>
+            )}
         </div>
     );
 };
