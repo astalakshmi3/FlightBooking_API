@@ -3,6 +3,7 @@ import {
     PlaneTakeoff,
     SearchCheck,
     TicketX,
+    Bot
 } from "lucide-react";
 
 import { Link } from "react-router-dom";
@@ -49,6 +50,11 @@ const Navbar = () => {
                     >
                         <TicketX size={18} />
                         Cancel Booking
+                    </Link>
+
+                    <Link to="/assistant" className="flex items-center gap-2 hover:text-blue-200">
+                        <Bot size={18} />
+                        Assistant
                     </Link>
 
                 </div>
