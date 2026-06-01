@@ -2,9 +2,16 @@
 # ✈️ Flight Reservation – Project Test
 
 
-A modern and responsive Flight Reservation frontend application built using React and TypeScript.
-This project connects to a Spring Boot REST API and allows users to view flights, book tickets, search bookings, and cancel reservations.
+This project is a Flight Reservation System enhanced with an AI-powered assistant using Spring AI, OpenAI, React, and TypeScript.
 
+The application allows users to:
+
+* View all flights
+* View available flights
+* Book a flight
+* Search bookings by email
+* Cancel bookings
+* Chat with an AI assistant for flight-related help
 
 
 ## Features
@@ -44,6 +51,24 @@ Flight number
 
 Modern responsive design using Tailwind CSS.
 
+### AI Assistant
+
+The AI assistant can:
+
+* Answer flight-related questions
+* Help users search flights
+* Guide users through booking
+* Help users cancel bookings
+* Maintain conversation context using chat memory
+### AI Concepts Implemented
+
+* Spring AI ChatClient
+* System Message
+* In-memory Chat Memory
+* OpenAI Integration
+* Assistant Chat Endpoint
+* Frontend Chatbot UI
+
 
 ## Technologies
 - React
@@ -81,3 +106,6 @@ This project helped me practice:
 
 ### Cancel Booking Page
 ![Cancel Booking Page](screenshots/Cancel.png)
+
+### AI Assistant Chat Page
+![AI Assistant Chat Page](screenshots/Assistant.png)
