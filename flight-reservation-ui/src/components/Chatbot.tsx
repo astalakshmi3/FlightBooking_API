@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Bot, Send, User } from "lucide-react";
 import { sendMessage } from "../api/AssistantAPI";
 
@@ -18,12 +18,22 @@ const Chatbot = () => {
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
 
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({
+            behavior: "smooth",
+        });
+    }, [messages, loading]);
+
     const handleSend = async () => {
         if (!input.trim()) return;
 
+        const userText = input;
+
         const userMessage: ChatMessage = {
             sender: "user",
-            text: input,
+            text: userText,
         };
 
         setMessages((prev) => [...prev, userMessage]);
@@ -31,7 +41,7 @@ const Chatbot = () => {
         setLoading(true);
 
         try {
-            const data = await sendMessage(input);
+            const data = await sendMessage(userText);
 
             const assistantMessage: ChatMessage = {
                 sender: "assistant",
@@ -53,7 +63,7 @@ const Chatbot = () => {
     };
 
     return (
-        <div className="mx-auto flex h-[500px] max-w-3xl flex-col rounded-3xl bg-white shadow-xl">
+        <div className="mx-auto flex h-[600px] max-w-3xl flex-col rounded-3xl bg-white shadow-xl">
             <div className="flex items-center gap-3 rounded-t-3xl bg-blue-700 p-5 text-white">
                 <Bot />
                 <div>
@@ -64,7 +74,7 @@ const Chatbot = () => {
                 </div>
             </div>
 
-            <div className="flex-1 space-y-4 overflow-y-auto p-5">
+            <div className="min-h-0 flex-1 space-y-3 overflow-y-auto p-4">
                 {messages.map((message, index) => (
                     <div
                         key={index}
@@ -73,11 +83,11 @@ const Chatbot = () => {
                         }`}
                     >
                         {message.sender === "assistant" && (
-                            <Bot className="text-blue-700" size={22} />
+                            <Bot className="mt-1 text-blue-700" size={22} />
                         )}
 
                         <div
-                            className={`max-w-[75%] rounded-2xl px-3 py-2  text-sm whitespace-pre-line ${
+                            className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm whitespace-pre-wrap break-words font-sans ${
                                 message.sender === "user"
                                     ? "bg-blue-700 text-white"
                                     : "bg-gray-100 text-gray-800"
@@ -87,7 +97,7 @@ const Chatbot = () => {
                         </div>
 
                         {message.sender === "user" && (
-                            <User className="text-gray-600" size={22} />
+                            <User className="mt-1 text-gray-600" size={22} />
                         )}
                     </div>
                 ))}
@@ -95,9 +105,11 @@ const Chatbot = () => {
                 {loading && (
                     <p className="text-sm text-gray-500">Assistant is typing...</p>
                 )}
+
+                <div ref={messagesEndRef} />
             </div>
 
-            <div className="flex gap-1 border-t p-4">
+            <div className="flex gap-2 border-t p-4">
                 <input
                     className="flex-1 rounded-xl border px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Ask something..."
